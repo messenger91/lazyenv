@@ -2,3 +2,5 @@ node_modules
 mongodump
 mongo
 .env
+wireguard/private.key
+wireguard/public.key
