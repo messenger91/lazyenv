@@ -1,10 +1,10 @@
 version: '3.8'
 services:
-  
-  bitnami_mongodb:
+
+  mongodb:
     image: 'bitnami/mongodb:latest'
     restart: always
-    container_name: bitnami_mongodb
+    container_name: mongodb
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=127.0.0.1
       - MONGODB_REPLICA_SET_MODE=primary
@@ -14,4 +14,8 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - /mongodb_data:/bitnami/mongodb
+      - 'mongodb_data:/bitnami/mongodb'
+
+
+volumes:
+  mongodb_data:
