@@ -2,3 +2,4 @@ node_modules
 .env
 wireguard/private.key
 wireguard/public.key
+get-docker.sh
