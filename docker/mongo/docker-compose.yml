@@ -2,7 +2,7 @@ version: "3.8"
 services:
   mongodb:
     image: "bitnami/mongodb:latest"
-    restart: always
+    # restart: always
     container_name: bitnami_mongodb
     environment:
       - MONGODB_REPLICA_SET_MODE=primary

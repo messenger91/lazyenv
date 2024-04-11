@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  postgres:
+    image: redis:latest
+    # restart: always
+    container_name: redis
+    environment:
+      - REDIS_PASSWORD=example
+    ports:
+      - "6379:6379"
+      
