@@ -12,4 +12,4 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "/var/lib/docker/bitnami_mongodb_data:/bitnami/mongodb"
+      - "/var/lib/docker/bitnami/mongodb:/bitnami/mongodb"
