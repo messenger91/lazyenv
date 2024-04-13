@@ -1,7 +1,8 @@
-version: "3.8"
+version: '2.1'
+
 services:
   mongodb:
-    image: "bitnami/mongodb:latest"
+    image: "bitnami/mongodb:7.0.8"
     # restart: always
     container_name: bitnami_mongodb
     environment:
@@ -12,4 +13,4 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "/var/lib/docker/bitnami/mongodb:/bitnami/mongodb"
+      - ./bitnami/mongodb:/bitnami/mongodb

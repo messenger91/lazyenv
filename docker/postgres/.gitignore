@@ -1,0 +1,6 @@
+*
+!.gitignore
+!build.sh
+!pg_dump.sh
+!pg_restore.sh
+!update.sh

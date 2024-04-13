@@ -1,0 +1,1 @@
+docker run -d --name rabbitmq -p 15672:15672 --network rabbitmq rabbitmq:3.13.1-management
