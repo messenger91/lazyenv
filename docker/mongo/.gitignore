@@ -1,3 +1,7 @@
 *
 !.gitignore
+!mongodump.sh
+!mongorestore.sh
+!build.sh
+!update.sh
 !docker-compose.yml

@@ -1,13 +1,15 @@
 
-echo ${PWD}
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source "$SCRIPT_DIR/../../.env"
+
 docker run -d \
     --name postgres \
     --network postgres \
     -e POSTGRES_PASSWORD=example \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
-	-v ${PWD}/pgdata:/var/lib/postgresql/data \
+	-v ${SCRIPT_DIR}/pgdata:/var/lib/postgresql/data \
     -p 5432:5432 \
-        postgres:16.2
+        postgres:$DOCKER_POSTGRES_TAG
 
 
 CONTAINER_ID=$(docker ps -aqf "name=postgres")
