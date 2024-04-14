@@ -1,7 +1,10 @@
 version: '2.1'
 
 services:
-  mongodb:
+
+  # That mongodb version fix problem:
+  # "Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set" 
+  bitnami_mongodb:
     image: "bitnami/mongodb:7.0.8"
     # restart: always
     container_name: bitnami_mongodb
@@ -11,6 +14,6 @@ services:
       - MONGODB_ROOT_USER=root
       - MONGODB_ROOT_PASSWORD=example
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - ./bitnami/mongodb:/bitnami/mongodb
