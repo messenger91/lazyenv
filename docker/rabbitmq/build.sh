@@ -5,4 +5,4 @@ docker run -d \
     --name rabbitmq \
     --network rabbitmq \
     -p 15672:15672 \
-        rabbitmq:$DOCKER_RABBITMQ_TAG
+        rabbitmq:$DOCKER_IMAGE_RABBITMQ_TAG

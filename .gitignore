@@ -4,5 +4,6 @@ config/wireguard/private.key
 config/wireguard/public.key
 config/wireguard/wg0.conf
 get-docker.sh
+openvpn-install.sh
 mongo_dump
 pg_dump

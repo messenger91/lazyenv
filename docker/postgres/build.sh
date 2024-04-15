@@ -9,7 +9,7 @@ docker run -d \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
 	-v ${SCRIPT_DIR}/pgdata:/var/lib/postgresql/data \
     -p 5432:5432 \
-        postgres:$DOCKER_POSTGRES_TAG
+        postgres:$DOCKER_IMAGE_POSTGRES_TAG
 
 
 CONTAINER_ID=$(docker ps -aqf "name=postgres")

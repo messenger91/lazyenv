@@ -1,3 +1,4 @@
 *
 !.gitignore
-!docker-compose.yml
+!build.sh
+!index.html

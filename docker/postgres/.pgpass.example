@@ -1,0 +1,5 @@
+# NOTE: After copy and edit examle: chmod 0600 .pgpass
+
+# Postgresql password file
+# hostname:port:database:username:password
+127.0.0.1:5432:db:user:pwd

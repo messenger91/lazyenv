@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+  node:
+    container_name: node-hello-world
+    image: node:20
+    working_dir: /app
+    command: "./run.sh"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    networks:
+      - br0
+
+networks:
+  br0:
+    driver: bridge
+    external: true

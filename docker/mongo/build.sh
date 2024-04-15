@@ -6,7 +6,7 @@ docker run -d \
     --network mongo \
     -v ${SCRIPT_DIR}/data/db:/data/db \
     -p 27017:27017 \
-        mongo:$DOCKER_MONGO_TAG
+        mongo:$DOCKER_IMAGE_MONGO_TAG
 
 CONTAINER_ID=$(docker ps -aqf "name=mongo")
 

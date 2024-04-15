@@ -1,6 +1,8 @@
 *
+pgdata
 !.gitignore
 !build.sh
 !pg_dump.sh
 !pg_restore.sh
 !update.sh
+!.pgpass.example
