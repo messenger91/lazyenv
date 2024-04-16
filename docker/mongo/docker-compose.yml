@@ -17,3 +17,11 @@ services:
       - "27018:27017"
     volumes:
       - ./bitnami/mongodb:/bitnami/mongodb
+    networks:
+      mongo:
+        ipv4_address: 172.23.2.20
+
+networks:
+  mongo:
+    driver: bridge
+    external: true

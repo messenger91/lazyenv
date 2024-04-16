@@ -22,22 +22,20 @@ This repos help developers to quickly setup dev environment :)
 - install
 - utils
 
-# TMP FOLDERS
-
-- mongo_dump
-- pg_dump
-
 ## Env
 
 Example:
 
 ```.env
+# APP VERSIONS
 NVM_VERSION=0.39.7
 
+# DOCKER IMAGE TAGS
 DOCKER_IMAGE_POSTGRES_TAG=16.2
 DOCKER_IMAGE_MONGO_TAG=7.0.8
 DOCKER_IMAGE_REDIS_TAG=7.2.4
 DOCKER_IMAGE_RABBITMQ_TAG=3.13.1-management
+DOCKER_IMAGE_NGINX_TAG=1.25.4
 
 ```
 

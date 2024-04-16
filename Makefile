@@ -6,19 +6,19 @@ create-net:
 	cd docker && bash network.sh
 
 build-container:
-	cd docker/${NAME} && bash build.sh
+	cd docker/${name} && bash build.sh
 
 update-container:
-	cd docker/${NAME} && bash update.sh
+	cd docker/${name} && bash update.sh
 
 postgres-dump:
-	docker exec -d postgres bash pg_dump.sh ${DATABASE}
+	docker exec -d postgres bash pg_dump.sh ${db}
 
 postgres-restore:
-	docker exec -d postgres bash pg_restore.sh ${DATABASE} ${TIMESTAMP}
+	docker exec -d postgres bash pg_restore.sh ${db} ${date}
 
 mongodump:
-	docker exec -d mongo bash mongodump.sh ${DATABASE}
+	docker exec -d mongo bash mongodump.sh ${db}
 
 mongorestore:
-	docker exec -d mongo bash mongorestore.sh ${DATABASE} ${TIMESTAMP}
+	docker exec -d mongo bash mongorestore.sh ${db} ${date}

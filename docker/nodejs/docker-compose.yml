@@ -7,11 +7,12 @@ services:
     working_dir: /app
     command: "./run.sh"
     ports:
-      - 3000:3000
+      - 3099:3099
     volumes:
       - .:/app
     networks:
-      - br0
+      br0:
+        ipv4_address: 172.23.0.099
 
 networks:
   br0:
