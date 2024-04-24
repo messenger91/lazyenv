@@ -1,0 +1,6 @@
+# Example
+
+Host example.com
+  HostName example.com
+  User root
+  IdentityFile ~/.ssh/another_id_rsa
