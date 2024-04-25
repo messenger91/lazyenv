@@ -22,3 +22,6 @@ mongodump:
 
 mongorestore:
 	docker exec -d mongo bash mongorestore.sh ${db} ${date}
+
+sync-github:
+	cd scripts/utils && bash github-repos.sh
