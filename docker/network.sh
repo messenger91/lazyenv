@@ -9,4 +9,4 @@ docker network create --driver bridge --subnet=172.23.7.0/24 rabbitmq
 docker network create --driver bridge --subnet=172.23.8.0/24 nats
 docker network create --driver bridge --subnet=172.23.9.0/24 jaeger
 docker network create --driver bridge --subnet=172.23.10.0/24 consul
-docker network create --driver bridge --subnet=172.23.11.0/24 grafana
+docker network create --driver bridge --subnet=172.23.11.0/24 loki
