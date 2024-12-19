@@ -4,7 +4,7 @@ source "$SCRIPT_DIR/../../.env"
 docker run -d \
     --name nats \
     --network nats \
-    --ip 172.23.8.2 \
+    --ip 172.23.8.254 \
     -p 4222:4222  \
     -p 8222:8222  \
         nats:$DOCKER_IMAGE_NATS_TAG \

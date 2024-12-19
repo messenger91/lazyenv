@@ -4,7 +4,7 @@ source "$SCRIPT_DIR/../../.env"
 docker run -d \
   --name jaeger \
   --network jaeger \
-  --ip 172.23.9.2 \
+  --ip 172.23.9.254 \
   -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
   -p 16686:16686 \
   -p 4317:4317 \

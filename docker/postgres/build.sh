@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../.env"
 docker run -d \
     --name postgres \
     --network postgres \
-    --ip 172.23.2.2 \
+    --ip 172.23.2.254 \
     -e POSTGRES_PASSWORD=example \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
 	-v ${SCRIPT_DIR}/pgdata:/var/lib/postgresql/data \
