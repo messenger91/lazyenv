@@ -17,6 +17,9 @@ postgres-dump:
 postgres-restore:
 	docker exec -d postgres bash pg_restore.sh ${db} ${date}
 
+psql-restore:
+	docker exec -d postgres bash psql_restore.sh ${db} ${file}
+
 mongodump:
 	docker exec -d mongo bash mongodump.sh ${db}
 

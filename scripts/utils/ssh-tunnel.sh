@@ -1,15 +1,11 @@
 #!/bin/bash
 
-ENV=${1:-dev}
-HOST=${2:-localhost}
-SERVER=root@$HOST
-PORT=${3:-7000}
+HOST=${1:-localhost}
+USER=${2:-root}
+PORT=${3:-5433}
 
-if [[ $ENV = "prod" ]]; then
-    # PROD settings SSH TUNNEL
-    #
-fi
+SERVER=$USER@$HOST
 
 kill -9 $(lsof -t -i tcp:$PORT)
-ssh -f -N -L $HOST:$PORT:127.0.0.1:5432 $SERVER
-echo "$ENV SSH TUNNEL ESTABLISHED: PORT $PORT SERVER $SERVER"
+ssh -f -N -L localhost:$PORT:$HOST:5432 $SERVER
+echo "SSH TUNNEL ESTABLISHED: PORT $PORT SERVER $SERVER"

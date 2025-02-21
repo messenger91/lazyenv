@@ -7,3 +7,4 @@ get-docker.sh
 openvpn-install.sh
 mongo_dump
 pg_dump
+docker/grafana/tempo-data
