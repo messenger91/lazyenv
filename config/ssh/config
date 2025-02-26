@@ -1,6 +1,6 @@
-# Example
+# .ssh/config example
 
-Host example.com
-  HostName example.com
+Host domain.com
+  HostName domain.com
   User root
-  IdentityFile ~/.ssh/another_id_rsa
+  IdentityFile ~/.ssh/custom_id_rsa

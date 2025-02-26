@@ -1,6 +1,6 @@
-# infrastructure
+# lazyenv
 
-This repos help developers to quickly setup dev environment :)
+This repo help developers to quickly setup local environment :)
 
 ## Config
 

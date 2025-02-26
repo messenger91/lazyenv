@@ -5,10 +5,13 @@ env-prepare:
 create-net:
 	cd docker && bash network.sh
 
-build-container:
+docker-container-ip:
+	docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}; {{end}}' ${container}
+
+docker-container-build:
 	cd docker/${name} && bash build.sh
 
-update-container:
+docker-container-update:
 	cd docker/${name} && bash update.sh
 
 postgres-dump:
@@ -26,5 +29,5 @@ mongodump:
 mongorestore:
 	docker exec -d mongo bash mongorestore.sh ${db} ${date}
 
-sync-github:
+github-sync:
 	cd scripts/utils && bash github-repos.sh
