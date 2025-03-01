@@ -7,3 +7,4 @@ pgdata
 !psql_restore.sh
 !update.sh
 !.pgpass.example
+!.psqlrc

@@ -1,0 +1,3 @@
+\timing on
+\setenv PAGER 'less -XS'
+\pset null '[null]'
