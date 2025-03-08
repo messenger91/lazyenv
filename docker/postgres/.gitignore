@@ -1,10 +1,10 @@
 *
-pgdata
 !.gitignore
 !build.sh
+!update.sh
 !pg_dump.sh
 !pg_restore.sh
 !psql_restore.sh
-!update.sh
 !.pgpass.example
 !.psqlrc
+!scripts
