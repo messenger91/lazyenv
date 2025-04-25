@@ -18,7 +18,7 @@ postgres-dump:
 	docker exec -d postgres bash pg_dump.sh ${db}
 
 postgres-restore:
-	docker exec -d postgres bash pg_restore.sh ${db} ${date}
+	docker exec -d postgres bash pg_restore.sh ${db} ${file}
 
 psql-restore:
 	docker exec -d postgres bash psql_restore.sh ${db} ${file}

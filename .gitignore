@@ -10,3 +10,4 @@ pg_dump
 docker/grafana/tempo-data
 *.dump
 *.sql
+*.sql.gz

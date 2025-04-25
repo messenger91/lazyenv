@@ -3,11 +3,20 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$SCRIPT_DIR/../../.env"
 
 docker run -d \
+    --name pg_dump \
+    --network host \
+    -p 5432:5432 \
+    -e POSTGRES_PASSWORD=example \
+	-v ${SCRIPT_DIR}/dump:/dump \
+        postgres:$DOCKER_IMAGE_POSTGRES_TAG
+
+docker run -d \
     --name postgres \
     --network postgres \
     --ip 172.23.2.254 \
     -e POSTGRES_PASSWORD=example \
 	-e PGDATA=/var/lib/postgresql/data/pgdata \
+    -v ${SCRIPT_DIR}/pgdata:/var/lib/postgresql/data \
 	-v ${SCRIPT_DIR}/dump:/dump \
     -p 5432:5432 \
         postgres:$DOCKER_IMAGE_POSTGRES_TAG
