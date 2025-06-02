@@ -3,8 +3,9 @@ source "$SCRIPT_DIR/../../.env"
 
 docker run -d \
     --name nats \
-    --network nats \
-    --ip 172.23.8.254 \
+    --memory=64M \
+    --network br0 \
+    --ip $DOCKER_CONTAINER_NATS_IP \
     -p 4222:4222  \
     -v ${SCRIPT_DIR}/nats-server.conf:/etc/nats/nats-server.conf \
     -p 8222:8222  \

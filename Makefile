@@ -1,6 +1,12 @@
 # Makefile
+test:
+	echo "OK"
+
 env-prepare:
 	cp -n .env.example .env
+
+install:
+	cd scripts/install && bash ${name}.sh
 
 create-net:
 	cd docker && bash network.sh
