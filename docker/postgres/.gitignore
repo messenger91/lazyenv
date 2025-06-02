@@ -5,7 +5,7 @@
 !pg_dump.sh
 !pg_restore.sh
 !psql_restore.sh
-!.pgpass.example
+!.pgpass
 !.psqlrc
 !postgresql.conf
 !postgresql.default.conf
