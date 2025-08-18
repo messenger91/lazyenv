@@ -12,13 +12,14 @@ alias tail_ls='_tail_ls() { ls -l "$1" | tail ;}; _tail_ls'
 alias ping='ping -c 5'
 
 # git aliases
-alias gs='git status'
-alias gp='git pull'
-alias gb='git branch'
+alias ga='git add .'
+alias gb='git rev-parse --abbrev-ref HEAD'
+alias gc='git commit'
 alias gd='git diff'
+alias gl='git log'
+alias gp='git pull'
+alias gs='git status'
 
 # lazygit & lazydocker aliases
 alias lzg='lazygit'
 alias lzd='lazydocker'
-
-

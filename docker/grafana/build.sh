@@ -3,8 +3,8 @@ source "$SCRIPT_DIR/../../.env"
 
 docker run -d \
     --name grafana \
-    --network grafana \
-    --ip 172.23.11.254 \
+    --network br0 \
+    --ip $DOCKER_CONTAINER_GRAFANA_IP  \
     -e GF_PATHS_PROVISIONING=/etc/grafana/provisioning \
     -e GF_AUTH_ANONYMOUS_ENABLED=true \
     -e GF_AUTH_ANONYMOUS_ORG_ROLE=Admin \
@@ -14,16 +14,16 @@ docker run -d \
 
 docker run -d \
     --name loki \
-    --network grafana \
-    --ip 172.23.11.253 \
+    --network br0 \
+    --ip $DOCKER_CONTAINER_LOKI_IP  \
     -p 3100:3100  \
     -v "$SCRIPT_DIR/mnt/config:/mnt/config" \
         grafana/loki:$DOCKER_IMAGE_LOKI_TAG -config.file=/mnt/config/loki-config.yaml
    
 docker run -d \
     --name tempo \
-    --network grafana \
-    --ip 172.23.11.252 \
+    --network br0 \
+    --ip $DOCKER_CONTAINER_TEMPO_IP \
     --user root \
     --log-opt max-size=5m \
     -p 3200:3200  \
