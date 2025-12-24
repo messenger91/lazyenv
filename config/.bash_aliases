@@ -23,3 +23,6 @@ alias gs='git status'
 # lazygit & lazydocker aliases
 alias lzg='lazygit'
 alias lzd='lazydocker'
+
+# docker
+alias psql='docker exec -it postgres psql -U postgres'

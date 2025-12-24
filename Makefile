@@ -35,5 +35,8 @@ mongodump:
 mongorestore:
 	docker exec -d mongo bash mongorestore.sh ${db} ${date}
 
+sync-dump:
+	sudo cp docker/postgres/dump/*.dump pg_dump
+
 github-sync:
 	cd scripts/utils && bash github-repos.sh

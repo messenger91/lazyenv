@@ -20,6 +20,8 @@ docker cp $PWD/pg_dump.sh $CONTAINER_ID:/pg_dump.sh
 docker cp $PWD/pg_restore.sh $CONTAINER_ID:/pg_restore.sh
 docker cp $PWD/psql_restore.sh $CONTAINER_ID:/psql_restore.sh
 docker cp $PWD/.psqlrc $CONTAINER_ID:/root/.psqlrc
+docker cp $PWD/scripts $CONTAINER_ID:/root
+docker cp $PWD/.pgpass $CONTAINER_ID:/root/.pgpass
 
 # docker run -d \
 #     --network host \

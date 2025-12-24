@@ -1,6 +1,6 @@
 # lazyenv
 
-This repo help developers to quickly setup local environment :)
+Local environment manager which improve developer experience :)
 
 ## Config
 
