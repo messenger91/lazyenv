@@ -1,36 +1,6 @@
-# lazyenv
+# PROJECT FOLDER
+FOLDER=/home/user/lazyenv
 
-Local environment manager which improve developer experience :)
-
-## Config
-
-- ssh
-- wsl
-- bash_aliases
-
-## Docker
-
-- consul
-- grafana
-- jaeger
-- kafka
-- mongo
-- nats
-- nginx
-- postgres
-- rabbitmq
-- redis
-
-## Scripts
-
-- install
-- utils
-
-## Env
-
-Example:
-
-```.env
 # APP VERSIONS
 NVM_VERSION=0.40.3
 
@@ -72,18 +42,3 @@ GITHUB_REPOS_LIST=(
     "https://github.com/inancgumus/learngo" # example
     "https://github.com/teivah/100-go-mistakes" # example
 )
-```
-
-## Makefile commands
-
-| Command                 | VARS       | Description                                  |
-| ----------------------- | ---------- | -------------------------------------------- |
-| env-prepare             | -          | Init .env from env.example                   |
-| create-net              | -          | Init docker networks                         |
-| docker-container-ip     | $container | Check docker container ip's                  |
-| docker-build-container  | $name      | Build container by name                      |
-| docker-update-container | $name      | Update container by name                     |
-| postgres-dump           | $db        | Create pg_dump by database name              |
-| postgres-restore        | $db, $date | Restore pg database by name and timestamp    |
-| mongodump               | $db        | Create mongodump by database name            |
-| mongorestore            | $db, $date | Restore mongo database by name and timestamp |

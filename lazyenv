@@ -1,0 +1,80 @@
+#!/bin/bash
+source lazyenv.config
+
+if [ "$1" == "help" ]; then
+    echo """
+Commands:
+    install {name} - install by script name
+    run-util {name} - run util by name
+    docker-net - sync docker networks
+    docker-container-ip {name} | dci {name} - inspect docker container ip by name
+    docker-container-build {service} - build service docker container
+    docker-container-update {service} - update service docker container
+    pg-dump {db} - dump database by pg_dump (need available postgres container)
+    pg-restore {db} {db.dump} - restore database by pg_restore (need available postgres container)
+    psql-restore {db} {file.sql} - restore database pg_restore pg_dump (need available postgres container)
+"""
+fi
+
+
+if [ "$1" == "ping" ]; then
+    echo "pong"
+fi
+
+if [[ "$1" == "install" ]]; then
+    bash $FOLDER/scripts/install/${2}.sh
+fi
+
+if [[ "$1" == "run-util" ]]; then
+    cd scripts/utils && bash ${2}.sh
+fi
+
+if [[ "$1" == "docker-net" ]]; then
+    bash docker/network.sh
+fi
+
+if [[ "$1" == "docker-container-ip" || "$1" == "dci" ]]; then
+    docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}; {{end}}' ${2}
+fi
+
+if [[ "$1" == "docker-container-build" ]]; then
+    cd docker/${2} && bash build.sh
+fi
+
+if [[ "$1" == "docker-container-update" ]]; then
+    cd docker/${2} && bash update.sh
+fi
+
+if [[ "$1" == "pg-dump" ]]; then
+   docker exec -d postgres bash pg_dump.sh ${2}
+fi
+
+if [[ "$1" == "pg-restore" ]]; then
+   docker exec -d postgres bash pg_restore.sh ${2} ${3}
+fi
+
+if [[ "$1" == "psql-restore" ]]; then
+   docker exec -d postgres bash psql_restore.sh ${2} ${3}
+fi
+
+if [[ "$1" == "mongodump" ]]; then
+   docker exec -d mongo bash mongodump.sh ${2}
+fi
+
+if [[ "$1" == "mongorestore" ]]; then
+   docker exec -d mongo bash mongorestore.sh ${2} ${3}
+fi
+	
+if [[ "$1" == "sync-dump" ]]; then
+   sudo cp docker/postgres/dump/*.dump pg_dump
+fi
+
+if [[ "$1" == "pg-list" ]]; then
+    cd $FOLDER/pg_dump
+    for file in *; do
+        if [ -f "$file" ]; then
+            size=$(ls -lh "$file" | awk '{print $5}')
+            echo "$file [$size]"
+        fi
+    done
+fi

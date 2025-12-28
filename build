@@ -1,0 +1,3 @@
+#!/bin/bash
+cp lazyenv.config ~/.local/bin/lazyenv.config
+cp lazyenv ~/.local/bin/lazyenv

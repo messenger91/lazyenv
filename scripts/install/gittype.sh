@@ -1,0 +1,1 @@
+curl -sSL https://raw.githubusercontent.com/unhappychoice/gittype/main/install.sh | bash

@@ -1,14 +1,14 @@
 # Makefile
-test:
-	echo "OK"
-
-env-prepare:
-	cp -n .env.example .env
+ping:
+	echo "pong"
 
 install:
 	cd scripts/install && bash ${name}.sh
 
-create-net:
+run-util:
+	cd utils/install && bash ${name}.sh
+
+docker-net:
 	cd docker && bash network.sh
 
 docker-container-ip:
