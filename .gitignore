@@ -1,10 +1,7 @@
 node_modules
 .env
-config/wireguard/private.key
-config/wireguard/public.key
-config/wireguard/wg0.conf
+lazyenv.config
 get-docker.sh
-openvpn-install.sh
 mongo_dump
 pg_dump
 docker/grafana/tempo-data
