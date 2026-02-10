@@ -1,89 +1,150 @@
-# lazyenv
+# lazyenv - Local Environment Manager
 
-Local environment manager which improve developer experience :)
+## Project Overview
 
-## Config
+lazyenv is a local environment management tool designed to improve developer experience by simplifying the setup and management of development environments. It provides utilities for configuring system settings, managing Docker containers for various services, and automating common development tasks.
 
-- ssh
-- wsl
-- bash_aliases
+The project is organized around three main areas:
+- **Config**: System configuration files for SSH, WSL, and bash aliases
+- **Docker**: Pre-configured Docker containers for popular services
+- **Scripts**: Installation and utility scripts for common development tools
 
-## Docker
+## Architecture
 
-- consul
-- grafana
-- jaeger
-- kafka
-- mongo
-- nats
-- nginx
-- postgres
-- rabbitmq
-- redis
+The project follows a modular architecture with the following key components:
 
-## Scripts
+- `lazyenv` - Main executable script that serves as the command-line interface
+- `lazyenv.config.example` - Configuration template with version definitions and IP assignments
+- `Makefile` - Contains common commands for environment management
+- `config/` - System configuration files
+- `docker/` - Service-specific Docker configurations
+- `scripts/` - Installation and utility scripts
 
-- install
-- utils
+## Building and Running
 
-## Env
+### Prerequisites
+- Docker
+- Bash-compatible shell
+- curl (for some installation scripts)
 
-Example:
+### Setup Process
 
-```.env
-# APP VERSIONS
-NVM_VERSION=0.40.3
+1. **Initialize configuration**:
+   ```bash
+   cp lazyenv.config.example lazyenv.config
+   # Edit lazyenv.config with your specific paths and settings
+   ```
 
-# DOCKER IMAGE TAGS
-DOCKER_IMAGE_NGINX_TAG=1.25.4
-DOCKER_IMAGE_POSTGRES_TAG=16.2
-DOCKER_IMAGE_MONGO_TAG=8.0.5-noble
-DOCKER_IMAGE_REDIS_TAG=7.4.2-alpine
-DOCKER_IMAGE_RABBITMQ_TAG=3.13.1-management
-DOCKER_IMAGE_NATS_TAG=2.10.26-alpine3.21
-DOCKER_IMAGE_JAEGER_TAG=1.63.0
-DOCKER_IMAGE_CONSUL_TAG=1.15.4
-DOCKER_IMAGE_LOKI_TAG=2.9.2
-DOCKER_IMAGE_GRAFANA_TAG=10.4.12
-DOCKER_IMAGE_TEMPO_TAG=main-a2039e9
+2. **Create Docker network**:
+   ```bash
+   ./lazyenv docker-net
+   # Or using make: make create-net
+   ```
 
-# DOCKER CONTAINER IPS
-DOCKER_CONTAINER_NGINX_IP=172.23.0.100
-DOCKER_CONTAINER_POSTGRES_IP=172.23.0.102
-DOCKER_CONTAINER_MONGO_IP=172.23.0.107
-DOCKER_CONTAINER_REDIS_IP=172.23.0.109
-DOCKER_CONTAINER_RABBITMQ_IP=172.23.0.113
-DOCKER_CONTAINER_NATS_IP=172.23.0.122
-DOCKER_CONTAINER_JAEGER_IP=172.23.0.123
-DOCKER_CONTAINER_LOKI_IP=172.23.0.131
-DOCKER_CONTAINER_GRAFANA_IP=172.23.0.130
-DOCKER_CONTAINER_TEMPO_IP=172.23.0.132
+3. **Install required tools**:
+   ```bash
+   ./lazyenv install nvm
+   ./lazyenv install docker-wsl  # if on WSL
+   ```
 
-### UTILS
+4. **Build and run Docker services**:
+   ```bash
+   ./lazyenv docker-container-build postgres
+   ./lazyenv docker-container-build redis
+   # etc. for other services
+   ```
 
-# Kubectrl dump
-KUBE_PG_DUMP_CMD="PGPASSWORD=pwd pg_dump -U postgres -d postgres -p 5432"
-# Sync dbeaver scripts
-DBEAVER_SCRIPTS_DIR=../AppData/Roaming/DBeaverData/workspace6/General/Scripts
-# Github repos folder
-GITHUB_REPOS_FOLDER=/home/username/github # #example
-# Github list repos
-GITHUB_REPOS_LIST=(
-    "https://github.com/inancgumus/learngo" # example
-    "https://github.com/teivah/100-go-mistakes" # example
-)
+### Available Commands
+
+#### Main Interface (`./lazyenv`)
+- `./lazyenv help` - Show available commands
+- `./lazyenv install {name}` - Install tools by script name (e.g., `nvm`, `docker-wsl`)
+- `./lazyenv run-util {name}` - Run utility scripts
+- `./lazyenv docker-net` - Create Docker network
+- `./lazyenv docker-container-ip {name}` or `dci {name}` - Get container IP address
+- `./lazyenv docker-container-build {service}` - Build service container
+- `./lazyenv docker-container-update {service}` - Update service container
+- `./lazyenv pg-dump {db}` - Create PostgreSQL database dump
+- `./lazyenv pg-restore {db} {file}` - Restore PostgreSQL database
+- `./lazyenv psql-restore {db} {file}` - Restore SQL file to PostgreSQL
+- `./lazyenv mongodump {db}` - Create MongoDB dump
+- `./lazyenv mongorestore {db} {date}` - Restore MongoDB database
+- `./lazyenv sync-dump` - Copy dumps to pg_dump directory
+- `./lazyenv pg-list` - List available dump files
+
+#### Makefile Commands
+- `make env-prepare` - Initialize .env from example
+- `make create-net` - Initialize Docker networks
+- `make docker-container-ip container={name}` - Check container IP
+- `make docker-build-container name={name}` - Build container by name
+- `make docker-update-container name={name}` - Update container by name
+- `make postgres-dump db={database}` - Create pg_dump by database name
+- `make postgres-restore db={database} date={timestamp}` - Restore pg database
+- `make mongodump db={database}` - Create mongodump by database name
+- `make mongorestore db={database} date={timestamp}` - Restore mongo database
+
+### Supported Services
+
+The project includes pre-configured Docker setups for:
+- Consul
+- Grafana
+- Jaeger
+- Kafka
+- MongoDB
+- NATS
+- NGINX
+- PostgreSQL
+- RabbitMQ
+- Redis
+
+Each service has dedicated directories under `docker/` with build and update scripts.
+
+### Configuration
+
+The `lazyenv.config` file contains:
+- Project folder path
+- Application version definitions (NVM, etc.)
+- Docker image tags for all supported services
+- Fixed IP addresses for Docker containers on the custom network
+- Utility configurations for database dumps, DBeaver scripts, and GitHub repositories
+
+## Development Conventions
+
+- Shell scripts follow bash conventions
+- Docker containers use fixed IP addresses on a custom bridge network (172.23.0.0/24)
+- Each Docker service has its own directory with build/update scripts
+- Configuration values are centralized in the config file for easy management
+- The project uses a consistent naming convention for commands and variables
+
+## Key Features
+
+1. **Network Management**: Creates a custom Docker network with fixed IP assignments for predictable service connectivity
+2. **Database Utilities**: Includes scripts for PostgreSQL and MongoDB backup/restore operations
+3. **System Configuration**: Provides configuration files for SSH, WSL, and bash aliases
+4. **Service Management**: Standardized approach to building and updating Docker containers
+5. **Installation Scripts**: Automated installation of common development tools
+6. **Utility Functions**: Helper scripts for common development tasks
+
+## Usage Examples
+
+```bash
+# Set up the environment
+cp lazyenv.config.example lazyenv.config
+# Edit the config file with your settings
+./lazyenv docker-net
+
+# Install development tools
+./lazyenv install nvm
+
+# Build and run PostgreSQL container
+./lazyenv docker-container-build postgres
+
+# Check container IP
+./lazyenv docker-container-ip postgres
+
+# Create a database dump
+./lazyenv pg-dump mydatabase
+
+# List available dumps
+./lazyenv pg-list
 ```
-
-## Makefile commands
-
-| Command                 | VARS       | Description                                  |
-| ----------------------- | ---------- | -------------------------------------------- |
-| env-prepare             | -          | Init .env from env.example                   |
-| create-net              | -          | Init docker networks                         |
-| docker-container-ip     | $container | Check docker container ip's                  |
-| docker-build-container  | $name      | Build container by name                      |
-| docker-update-container | $name      | Update container by name                     |
-| postgres-dump           | $db        | Create pg_dump by database name              |
-| postgres-restore        | $db, $date | Restore pg database by name and timestamp    |
-| mongodump               | $db        | Create mongodump by database name            |
-| mongorestore            | $db, $date | Restore mongo database by name and timestamp |

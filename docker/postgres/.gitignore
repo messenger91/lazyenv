@@ -12,3 +12,4 @@
 !pg_hba.conf
 !pg_hba.default.conf
 !scripts
+!demo.sql
