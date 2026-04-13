@@ -1,5 +1,5 @@
 #!/bin/bash
-source lazyenv.config
+source lazyenv.env
 
 if [[ "$1" == "help" || "$1" == "--help" || "$1" == "-help" || "$1" == "" ]]; then
     echo """

@@ -1,6 +1,5 @@
 node_modules
 .env
-lazyenv.config
 get-docker.sh
 mongo_dump
 pg_dump

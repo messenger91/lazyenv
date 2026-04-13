@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source "$SCRIPT_DIR/../../lazyenv.config"
+source "$SCRIPT_DIR/../../.env"
 
 DATABASE=${1:-postgres}
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
