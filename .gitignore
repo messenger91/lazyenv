@@ -3,6 +3,7 @@ node_modules
 get-docker.sh
 mongo_dump
 pg_dump
+mysql_dump
 docker/grafana/tempo-data
 *.dump
 *.sql
