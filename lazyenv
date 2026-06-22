@@ -1,7 +1,7 @@
 #!/bin/bash
 source lazyenv.conf
 
-VERSION="1.0.1-20260604"
+VERSION="1.1.0"
 
 print_banner() {
     R='\033[0;31m'; Y='\033[0;33m'; G='\033[0;32m'
@@ -36,6 +36,7 @@ Commands:
     ${G}psql-restore${N} {db} {file} - restore postgres database from sql
     ${G}pg-list${N} - list available dumps
     ${G}pg-copy${N} - copy dumps from containers to pg_dump/
+    ${G}pg-log${N} [--tail] - follow dump log (or show last 10 lines)
 
     ${G}mongodump${N} {db} - dump mongodb
     ${G}mongorestore${N} {db} {date} - restore mongodb
@@ -107,4 +108,12 @@ fi
 
 if [[ "$1" == "pg-copy" ]]; then
    sudo cp docker/postgres/dump/*.dump pg_dump
+fi
+
+if [[ "$1" == "pg-log" ]]; then
+   if [[ "$2" == "--tail" ]]; then
+       docker exec -it postgres tail -10 /dump/dump.log
+   else
+       docker exec -it postgres tail -f /dump/dump.log
+   fi
 fi
