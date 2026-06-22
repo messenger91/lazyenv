@@ -23,6 +23,17 @@ docker cp $PWD/.psqlrc $CONTAINER_ID:/root/.psqlrc
 docker cp $PWD/scripts $CONTAINER_ID:/root
 docker cp $PWD/.pgpass $CONTAINER_ID:/root/.pgpass
 
+echo "Waiting for postgres to be ready..."
+until docker exec postgres pg_isready -U postgres -q 2>/dev/null; do
+    sleep 1
+done
+
+echo "Creating demo database..."
+docker exec postgres createdb -U postgres lazyenv_demo 2>/dev/null || true
+
+echo "Loading demo data..."
+docker exec -i postgres psql -U postgres -d lazyenv_demo < $PWD/demo.sql
+
 # docker run -d \
 #     --network host \
 #     --name libpg \
