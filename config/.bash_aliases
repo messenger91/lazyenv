@@ -4,7 +4,6 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 
-
 #alias with args as func
 alias tail_ls='_tail_ls() { ls -l "$1" | tail ;}; _tail_ls'
 
@@ -23,8 +22,9 @@ alias gs='git status'
 # lazygit & lazydocker aliases
 alias lzg='lazygit'
 alias lzd='lazydocker'
-alias lzd='lazyenv'
+alias lze='lazyenv'
 
 # docker
 alias psql='docker exec -it postgres psql -U postgres'
 alias redis='docker exec -it redis redis-cli'
+
