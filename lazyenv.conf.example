@@ -2,7 +2,7 @@
 FOLDER=/home/user/lazyenv
 
 # APP VERSIONS
-NVM_VERSION=0.40.3
+NVM_VERSION=0.40.4
 
 # DOCKER IMAGE TAGS
 DOCKER_IMAGE_NGINX_TAG=1.25.4
@@ -39,14 +39,19 @@ DOCKER_CONTAINER_KAFKA_IP=172.23.0.150
 
 ### UTILS
 
-# Kubectrl dump
-KUBE_PG_DUMP_CMD="PGPASSWORD=pwd pg_dump -U postgres -d postgres -p 5432"
 # Sync dbeaver scripts
 DBEAVER_SCRIPTS_DIR=../AppData/Roaming/DBeaverData/workspace6/General/Scripts
 # Github repos folder
-GITHUB_REPOS_FOLDER=/home/username/github # #example
+GITHUB_REPOS_FOLDER=/home/username/github #example
 # Github list repos
 GITHUB_REPOS_LIST=(
-    "https://github.com/inancgumus/learngo" # example
-    "https://github.com/teivah/100-go-mistakes" # example
+    "https://github.com/inancgumus/learngo" #example
+    "https://github.com/teivah/100-go-mistakes" #example
+)
+
+# Gitlab repos folder
+GITLAB_REPOS_FOLDER=/home/username/gitlab #example
+# Gitlab list repos
+GITLAB_REPOS_LIST=(
+    "https://gitlab.com/username/project" #example
 )

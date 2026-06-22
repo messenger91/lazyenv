@@ -7,3 +7,7 @@ docker cp $SCRIPT_DIR/psql_restore.sh $CONTAINER_ID:/psql_restore.sh
 docker cp $SCRIPT_DIR/.psqlrc $CONTAINER_ID:/root/.psqlrc
 docker cp $SCRIPT_DIR/.pgpass $CONTAINER_ID:/root/.pgpass
 docker cp $SCRIPT_DIR/scripts $CONTAINER_ID:/root
+docker exec -d postgres chmod +x /pg_dump.sh
+docker exec -d postgres chmod +x /pg_restore.sh
+docker exec -d postgres chmod +x /psql_restore.sh
+docker exec -d postgres chmod 0600 /root/.pgpass

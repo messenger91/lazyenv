@@ -1,6 +1,9 @@
 DATABASE=${1:-postgres}
 FILE=${2:-postgres.dump}
+HOST=127.0.0.1
+PORT=5432
+USER=postgres
+PASSWORD=example
 
-dropdb -U postgres "$DATABASE"
-createdb -U postgres "$DATABASE"
-pg_restore -h 127.0.0.1 -p 5432 -U postgres --dbname=$DATABASE -w /dump/$FILE.dump
+pg_restore -h $HOST -p $PORT -U $USER -d $DATABASE -w /dump/$FILE
+echo "$DATABASE restored from $FILE"

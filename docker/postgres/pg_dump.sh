@@ -1,4 +1,9 @@
-DATABASE=${1:-postgres}
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
+DATABASE=${1:-postgres}
+HOST=127.0.0.1
+PORT=5432
+USER=postgres
 
-pg_dump -Fc --dbname=$DATABASE -U postgres -h 127.0.0.1 -p 5432 -w -f /dump/$DATABASE-$TIMESTAMP.dump
+FILE=$DATABASE\_$TIMESTAMP.dump
+pg_dump -Fc --dbname=$DATABASE -U $USER -h $HOST -p $PORT -w -f /dump/$FILE
+echo "$FILE"

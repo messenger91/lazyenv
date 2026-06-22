@@ -1,2 +1,4 @@
 #!/bin/bash
 cp lazyenv ~/.local/bin/lazyenv
+cp lazyenv.conf ~/.local/bin/lazyenv.conf
+chmod +x ~/.local/bin/lazyenv

@@ -1,10 +1,11 @@
 node_modules
 .env
-get-docker.sh
 mongo_dump
 pg_dump
 mysql_dump
+lazyenv.conf
 docker/grafana/tempo-data
 *.dump
 *.sql
 *.sql.gz
+*.log
