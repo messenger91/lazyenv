@@ -17,3 +17,14 @@ CONTAINER_ID=$(docker ps -aqf "name=mysql")
 
 docker cp $PWD/mysql_dump.sh $CONTAINER_ID:/mysql_dump.sh
 docker cp $PWD/mysql_restore.sh $CONTAINER_ID:/mysql_restore.sh
+
+echo "Waiting for mysql to be ready..."
+until docker exec mysql mysqladmin ping -u root -p example --silent 2>/dev/null; do
+    sleep 2
+done
+
+echo "Creating demo database..."
+docker exec mysql mysql -u root -p example -e "CREATE DATABASE IF NOT EXISTS lazyenv_demo"
+
+echo "Loading demo data..."
+docker exec -i mysql mysql -u root -p example lazyenv_demo < $PWD/demo.sql

@@ -2,6 +2,9 @@
 ping:
 	echo "pong"
 
+build:
+	./build
+
 install:
 	cd scripts/install && bash ${name}.sh
 
