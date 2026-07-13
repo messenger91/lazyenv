@@ -11,7 +11,7 @@ docker run -d \
     -v ${SCRIPT_DIR}/data:/var/lib/mysql \
     -v ${SCRIPT_DIR}/dump:/dump \
     -p 3306:3306 \
-        mysql:$DOCKER_IMAGE_MYSQL_TAG
+        mariadb:$DOCKER_IMAGE_MYSQL_TAG
 
 CONTAINER_ID=$(docker ps -aqf "name=mysql")
 
