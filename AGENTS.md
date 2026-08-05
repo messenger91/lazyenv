@@ -1,74 +1,58 @@
 # lazyenv - Local Environment Manager
 
-## Entry Point
+Bash CLI for managing local dev tools, Docker service containers, and database dumps.
+
+## Entry Points
 
 ```bash
-./lazyenv {command} [args]   # Main CLI
-make {target}                 # Alternative via Makefile
+./lazyenv {command} [args]   # main CLI (run from repo root)
+make {target}                # partial mirror of CLI
+./build                      # installs CLI + conf to ~/.local/bin/
 ```
 
-## Key Commands
+## CLI Commands
 
 ```bash
-./lazyenv install {name}          # Install tools (nvm, docker-wsl, lazydocker, gittype)
-./lazyenv docker-net               # Create Docker bridge network (172.23.0.0/24, name: br0)
-./lazyenv docker-container-build {service}  # Build service container
-./lazyenv docker-container-ip {name}         # Get container IP
-./lazyenv pg-dump {db}             # Dump PostgreSQL database
-./lazyenv pg-list                  # List available dumps in pg_dump/
-./lazyenv mongodump {db}           # Dump MongoDB database
-./lazyenv pg-restore {db} {file}   # Restore pg_dump file
-./lazyenv psql-restore {db} {file} # Restore plain SQL file
-./lazyenv github-sync             # Sync GitHub repos
-./lazyenv gitlab-sync             # Sync GitLab repos
-./lazyenv pg-copy                 # Copy dumps from docker/postgres/dump to pg_dump/
+./lazyenv help                                   # banner + command list (no args also works)
+./lazyenv install {name}                         # run scripts/install/{name}.sh
+./lazyenv run-util {name}                        # run scripts/utils/{name}.sh
+./lazyenv github-sync | gitlab-sync              # clone/sync repos listed in lazyenv.conf
+./lazyenv docker-net                             # create bridge br0 (172.23.0.0/24)
+./lazyenv dcb {svc} | dcu {svc}                  # build / update service container (aliases: docker-container-build/update)
+./lazyenv dci {name}                             # show container IPs (alias: docker-container-ip)
+./lazyenv pg-dump {db} | pg-restore {db} {f}     # dump / restore postgres (pg_restore format)
+./lazyenv psql-restore {db} {f}                  # restore plain SQL into postgres
+./lazyenv pg-list                                # list dumps in pg_dump/
+./lazyenv pg-copy                                # sudo cp docker/postgres/dump/*.dump pg_dump/
+./lazyenv pg-log [--tail] | mysql-log [--tail]   # follow dump.log (default = tail -f)
+./lazyenv mysql-dump {db} | mysql-restore {db} {f}   # mysql dumps are gzipped (*.sql.gz)
+./lazyenv mongodump {db} | mongorestore {db} {date}
 ```
 
-## Configuration
+`make` equivalents: `make docker-container-build name={svc}`, `make postgres-dump db={db}`, `make pg-copy` (note: target is `sync-dump` in the Makefile, not `pg-copy`).
 
-- **Source config**: `lazyenv.conf` (gitignored, copy from `lazyenv.conf.example`)
-- Config file sets Docker image tags, container IP addresses (172.23.0.0/24 subnet), and utility paths
+## Config
+
+- `lazyenv.conf` is gitignored; copy `lazyenv.conf.example`. The CLI and all `docker/*/build.sh` source it.
+- `FOLDER` must point at the repo: `install` and `pg-list` use `$FOLDER` absolutely.
+- `run-util`/`github-sync`/`gitlab-sync` use relative paths — run them from the repo root.
+- Conf holds image tags, fixed container IPs (172.23.0.0/24), and GITHUB_*/GITLAB_* repo lists for sync. It defines consul/loki/tempo tags, but there are no `docker/` dirs for those.
 
 ## Docker Services
 
-Services under `docker/` each have `build.sh` and `update.sh`:
-- postgres, mysql, mongo, redis, rabbitmq, nats, nginx, kafka, jaeger, grafana, elasticsearch
+`docker/{service}/build.sh` creates a container on `br0` with a fixed IP from `lazyenv.conf` (postgres 172.23.0.102, mysql 172.23.0.108, mongo 172.23.0.107, redis 172.23.0.109). Only postgres, mysql, mongo have `update.sh`. `br0` must exist first: `./lazyenv docker-net`.
 
-Each service binds to a fixed IP defined in `lazyenv.conf`:
-```
-postgres: 172.23.0.102
-mysql: 172.23.0.108
-mongo: 172.23.0.107
-redis: 172.23.0.109
-```
+- postgres/mysql use hardcoded root password `example` and create `lazyenv_demo` DB from `demo.sql`.
+- postgres/mysql mount `dump/` to container `/dump`; mongo does NOT (its `mongodump.sh` writes to `/data/db/dump/` inside the container).
+- mongo and kafka also ship `docker-compose.yml`; nodejs has `run.sh` + `server.mjs`.
 
-## Directory Structure
+## DB Dump/Restore Flow
 
-```
-lazyenv/          # Main CLI script
-lazyenv.conf      # Configuration (gitignored)
-pg_dump/          # Database dumps (gitignored)
-docker/           # Service configs and build scripts
-  {service}/      # Service-specific: build.sh, update.sh, dump scripts
-  network.sh      # Creates br0 network
-config/           # SSH, WSL, bash aliases
-scripts/          # Install and utility scripts
-  install/        # nvm.sh, docker-wsl.sh, lazydocker.sh, gittype.sh, test.sh
-  utils/          # github-repos.sh, dbeaver-scripts.sh, ssh-tunnel.sh
-```
-
-## Makefile Patterns
-
-```bash
-make docker-container-build name={service}
-make postgres-dump db={database}
-make mongodump db={database}
-make pg-copy            # Copy dumps from docker/postgres/dump to pg_dump/
-```
+- `docker exec -d` runs dump/restore scripts detached inside the container; progress is only visible via `pg-log`/`mysql-log` (tail `/dump/dump.log`).
+- `pg-copy` / `make sync-dump` need `sudo` (raw `sudo cp`).
+- Postgres also copies `.psqlrc`, `.pgpass`, and `scripts/` into the container on build.
 
 ## Gotchas
 
-- `lazyenv` sources `lazyenv.conf` at startup — config file with `FOLDER` var must exist
-- Docker network `br0` must be created before building containers: `./lazyenv docker-net`
-- PostgreSQL container uses hardcoded password `example` in build.sh
-- Dump scripts inside containers expect mounted volumes at `/dump`
+- `make run-util` target is broken (cds to `utils/install`, which doesn't exist); use the CLI instead.
+- `*.dump`, `*.sql`, `*.sql.gz`, `*.log` are gitignored — pg_dump/ dumps and container dump dirs are local-only.

@@ -5,7 +5,7 @@ FILE_SQL=$DATABASE-$TIMESTAMP.sql
 FILE=$FILE_SQL.gz
 
 START=$(date +%s)
-mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" "$DATABASE" --single-transaction 2>/dev/null > /dump/$FILE_SQL
+mysqldump "$DATABASE" --single-transaction 2>/dev/null > /dump/$FILE_SQL
 DUMP_EXIT=$?
 
 if [ $DUMP_EXIT -eq 0 ] && [ -s /dump/$FILE_SQL ]; then

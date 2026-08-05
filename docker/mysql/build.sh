@@ -17,6 +17,8 @@ CONTAINER_ID=$(docker ps -aqf "name=mysql")
 
 docker cp $PWD/mysql_dump.sh $CONTAINER_ID:/mysql_dump.sh
 docker cp $PWD/mysql_restore.sh $CONTAINER_ID:/mysql_restore.sh
+docker cp $PWD/.my.cnf $CONTAINER_ID:/root/.my.cnf
+docker exec -d mysql chmod 0600 /root/.my.cnf
 
 echo "Waiting for mysql to be ready..."
 until docker exec mysql mysqladmin ping -u root -p example --silent 2>/dev/null; do
