@@ -20,7 +20,8 @@ make {target}                # partial mirror of CLI
 ./lazyenv docker-net                             # create bridge br0 (172.23.0.0/24)
 ./lazyenv dcb {svc} | dcu {svc}                  # build / update service container (aliases: docker-container-build/update)
 ./lazyenv dci {name}                             # show container IPs (alias: docker-container-ip)
-./lazyenv pg-dump {db} | pg-restore {db} {f}     # dump / restore postgres (pg_restore format)
+./lazyenv pg-dump {db} [host] [port] [user] [password]   # dump postgres; defaults 127.0.0.1 5432 postgres
+./lazyenv pg-restore {db} {f}                 # restore postgres (pg_restore format)
 ./lazyenv psql-restore {db} {f}                  # restore plain SQL into postgres
 ./lazyenv pg-list                                # list dumps in pg_dump/
 ./lazyenv pg-copy                                # sudo cp docker/postgres/dump/*.dump pg_dump/

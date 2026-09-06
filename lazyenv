@@ -31,7 +31,7 @@ Commands:
     ${G}docker-container-update${N} {service} | ${G}dcu${N} {service} - update service docker container
     ${G}docker-container-ip${N} {name} | ${G}dci${N} {name} - inspect docker container ip
 
-    ${G}pg-dump${N} {db} - dump postgres database
+    ${G}pg-dump${N} {db} [host] [port] [user] [password] - dump postgres database (defaults: 127.0.0.1 5432 postgres)
     ${G}pg-restore${N} {db} {file} - restore postgres database from dump
     ${G}psql-restore${N} {db} {file} - restore postgres database from sql
     ${G}pg-list${N} - list available dumps
@@ -81,7 +81,7 @@ if [[ "$1" == "docker-container-ip" || "$1" == "dci" ]]; then
 fi
 
 if [[ "$1" == "pg-dump" ]]; then
-   docker exec -d postgres bash pg_dump.sh ${2}
+   docker exec -d postgres bash pg_dump.sh "$2" "$3" "$4" "$5" "$6"
 fi
 
 if [[ "$1" == "pg-restore" ]]; then

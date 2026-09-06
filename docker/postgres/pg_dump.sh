@@ -1,10 +1,15 @@
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
 DATABASE=${1:-postgres}
-HOST=127.0.0.1
-PORT=5432
-USER=postgres
+HOST=${2:-127.0.0.1}
+PORT=${3:-5432}
+USER=${4:-postgres}
+PASSWORD=${5:-}
 
 FILE=$DATABASE\_$TIMESTAMP.dump
+
+if [ -n "$PASSWORD" ]; then
+    export PGPASSWORD="$PASSWORD"
+fi
 
 START=$(date +%s)
 pg_dump -Fc --dbname=$DATABASE -U $USER -h $HOST -p $PORT -w -f /dump/$FILE

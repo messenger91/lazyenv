@@ -42,7 +42,7 @@ The Docker network is `172.23.0.0/24` (bridge `br0`). Create it before building 
 - `./lazyenv docker-container-build {service}` / `dcb` - Build service container
 - `./lazyenv docker-container-update {service}` / `dcu` - Update service container
 - `./lazyenv docker-container-ip {name}` / `dci` - Inspect container IP
-- `./lazyenv pg-dump {db}` - Dump PostgreSQL database
+- `./lazyenv pg-dump {db} [host] [port] [user] [password]` - Dump PostgreSQL database (defaults: 127.0.0.1 5432 postgres)
 - `./lazyenv pg-restore {db} {file}` - Restore PostgreSQL database from dump
 - `./lazyenv psql-restore {db} {file}` - Restore PostgreSQL database from SQL
 - `./lazyenv pg-list` - List available PostgreSQL dumps
