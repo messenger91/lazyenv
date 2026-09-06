@@ -1,11 +1,19 @@
 #!/bin/bash
 DATABASE=${1:-mysql}
+HOST=${2:-127.0.0.1}
+PORT=${3:-3306}
+USER=${4:-root}
+PASSWORD=${5:-}
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
 FILE_SQL=$DATABASE-$TIMESTAMP.sql
 FILE=$FILE_SQL.gz
 
+if [ -n "$PASSWORD" ]; then
+    export MYSQL_PWD="$PASSWORD"
+fi
+
 START=$(date +%s)
-mysqldump "$DATABASE" --single-transaction 2>/dev/null > /dump/$FILE_SQL
+mysqldump -h $HOST -P $PORT -u $USER "$DATABASE" --single-transaction 2>/dev/null > /dump/$FILE_SQL
 DUMP_EXIT=$?
 
 if [ $DUMP_EXIT -eq 0 ] && [ -s /dump/$FILE_SQL ]; then

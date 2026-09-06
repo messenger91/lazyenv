@@ -48,7 +48,7 @@ The Docker network is `172.23.0.0/24` (bridge `br0`). Create it before building 
 - `./lazyenv pg-list` - List available PostgreSQL dumps
 - `./lazyenv pg-copy` - Copy dumps from postgres container to pg_dump/
 - `./lazyenv pg-log [--tail]` - Follow dump log (or show last 10 lines)
-- `./lazyenv mysql-dump {db}` - Dump MySQL database (gzipped)
+- `./lazyenv mysql-dump {db} [host] [port] [user] [password]` - Dump MySQL database (gzipped; defaults: 127.0.0.1 3306 root)
 - `./lazyenv mysql-restore {db} {file}` - Restore MySQL database from dump
 - `./lazyenv mysql-log [--tail]` - Follow MySQL dump log (or show last 10 lines)
 - `./lazyenv mongodump {db}` - Dump MongoDB database

@@ -26,7 +26,8 @@ make {target}                # partial mirror of CLI
 ./lazyenv pg-list                                # list dumps in pg_dump/
 ./lazyenv pg-copy                                # sudo cp docker/postgres/dump/*.dump pg_dump/
 ./lazyenv pg-log [--tail] | mysql-log [--tail]   # follow dump.log (default = tail -f)
-./lazyenv mysql-dump {db} | mysql-restore {db} {f}   # mysql dumps are gzipped (*.sql.gz)
+./lazyenv mysql-dump {db} [host] [port] [user] [password]   # mysql dumps gzipped (*.sql.gz); defaults 127.0.0.1 3306 root
+./lazyenv mysql-restore {db} {f}          # restore mysql from gzipped dump
 ./lazyenv mongodump {db} | mongorestore {db} {date}
 ```
 
