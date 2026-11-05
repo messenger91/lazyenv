@@ -5,7 +5,7 @@ services:
   # That mongodb version fix problem:
   # "Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set" 
   bitnami_mongodb:
-    image: "bitnami/mongodb:7.0.8"
+    image: "soldevelo/mongodb:7.0.15"
     # restart: always
     container_name: bitnami_mongodb
     environment:
